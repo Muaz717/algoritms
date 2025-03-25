@@ -56,3 +56,36 @@ func TestConditioner(t *testing.T) {
 		})
 	}
 }
+
+func TestPhoneNumbers(t *testing.T) {
+	tests := []struct {
+		name      string
+		phoneNums []string
+		want      string
+	}{
+		{
+			name:      "1",
+			phoneNums: []string{"8(495)430-23-97", "+7-4-9-5-43-023-97", "4-3-0-2-3-9-7", "8-495-430"},
+			want:      "YES, YES, NO",
+		},
+		{
+			name:      "2",
+			phoneNums: []string{"8(928)430-23-97", "+7-9-2-8-43-023-97", "4-3-0-2-3-9-7", "8-495-430"},
+			want:      "YES, NO, NO",
+		},
+		{
+			name:      "3",
+			phoneNums: []string{"4-3-0-2-3-9-7", "8-495-430", "8(495)430-23-97", "+7-4-9-5-43-023-97"},
+			want:      "NO, YES, YES",
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			got := PhoneNumbers(tt.phoneNums[0], tt.phoneNums[1], tt.phoneNums[2], tt.phoneNums[3])
+			if got != tt.want {
+				t.Errorf("got %s, want %s", got, tt.want)
+			}
+		})
+	}
+}
