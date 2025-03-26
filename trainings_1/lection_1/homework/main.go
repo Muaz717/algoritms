@@ -2,27 +2,11 @@ package main
 
 import (
 	"fmt"
-	"math"
 	"strings"
 )
 
 func main() {
-	x := rootEquation(1, 2, -3)
-	fmt.Println(x)
-}
 
-func rootEquation(a, b, c float64) float64 {
-
-	if c < 0 {
-		fmt.Println("NO SOLUTION")
-		return 0
-	} else if a == 0 && b == 0 && c == 0 {
-		fmt.Println("MANY SOLUTIONS")
-	}
-
-	x := (math.Pow(c, 2) - b) / a
-
-	return x
 }
 
 func Сonditioner(a, b int, s string) int {
