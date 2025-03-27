@@ -6,6 +6,7 @@ import (
 	"math"
 	"os"
 	"strconv"
+	"strings"
 )
 
 func main() {
@@ -17,14 +18,34 @@ func main() {
 	defer file.Close()
 
 	list := make([]float64, 0, 2)
+	txtNums := make([]string, 0, 2)
 
 	sc := bufio.NewScanner(file)
 	for sc.Scan() {
-		num, _ := strconv.Atoi(sc.Text())
-		list = append(list, float64(num))
+		txtNums = append(txtNums, sc.Text())
 	}
-	list = list[0 : len(list)-1]
 
+	strNums := strings.Split(txtNums[1], " ")
+	x, _ := strconv.ParseFloat(txtNums[2], 64)
+
+	for _, strNum := range strNums {
+		num, _ := strconv.ParseFloat(strNum, 64)
+		list = append(list, num)
+	}
+
+	ans := list[0]
+	diff := math.Abs(x - list[0])
+
+	for _, num := range list {
+		newDiff := math.Abs(x - num)
+
+		if newDiff < diff {
+			diff = newDiff
+			ans = num
+		}
+	}
+
+	fmt.Println(ans)
 }
 
 func nearestNum(list []float64, x float64) {
